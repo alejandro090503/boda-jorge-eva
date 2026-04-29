@@ -366,17 +366,18 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:500;color:var(--accent)}
 }
 .date-hero > .container{position:relative;z-index:3}
 .date-eyebrow{
-  font-family:var(--sans);font-weight:400;
-  font-size:11px;letter-spacing:.6em;
-  text-transform:uppercase;color:var(--gold-soft);
+  font-family:var(--sans);font-weight:600;
+  font-size:13px;letter-spacing:.6em;
+  text-transform:uppercase;color:#FFE8A0;
   padding-left:.6em;margin-bottom:28px;display:inline-block;
 }
 .date-h{
   font-family:var(--display);font-weight:400;
-  font-size:clamp(42px,6.5vw,82px);color:#F8F5EC;
+  font-size:clamp(52px,8vw,100px);color:#fff;
   letter-spacing:-.015em;margin-bottom:12px;
+  text-shadow:0 2px 16px rgba(0,0,0,.25);
 }
-.date-h em{color:var(--gold-soft)}
+.date-h em{color:#FFE8A0}
 .date-numbers{
   display:flex;justify-content:center;align-items:flex-start;
   gap:clamp(24px,6vw,80px);font-variant-numeric:tabular-nums;margin:56px 0 28px;
@@ -384,21 +385,18 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:500;color:var(--accent)}
 .date-block{text-align:center;position:relative}
 .date-block + .date-block::before{
   content:"·";position:absolute;left:calc(-1 * clamp(24px,6vw,80px) / 2);top:40%;
-  transform:translateX(-50%);color:var(--gold-soft);font-size:30px;
+  transform:translateX(-50%);color:#FFE8A0;font-size:30px;
 }
 .date-num{
   font-family:var(--display);font-style:italic;font-weight:400;
-  font-size:clamp(68px,10vw,124px);line-height:1;color:#F8F5EC;
+  font-size:clamp(88px,13vw,154px);line-height:1;color:#fff;
+  text-shadow:0 2px 20px rgba(0,0,0,.2);
 }
 .date-lbl{
-  font-family:var(--sans);font-size:10px;letter-spacing:.55em;
-  text-transform:uppercase;color:rgba(248,245,236,.8);margin-top:18px;padding-left:.55em;font-weight:400;
+  font-family:var(--sans);font-size:13px;letter-spacing:.55em;
+  text-transform:uppercase;color:#fff;margin-top:18px;padding-left:.55em;font-weight:500;
 }
-.date-roman{
-  font-family:var(--italiana);
-  font-size:16px;letter-spacing:.4em;color:var(--gold-soft);
-  margin-top:32px;padding-left:.4em;
-}
+.date-roman{display:none}
 
 /* ============ HISTORIA ============ */
 .story{max-width:860px;margin:0 auto;text-align:center}
@@ -1155,7 +1153,6 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
           <div class="date-lbl">Sábado</div>
         </div>
       </div>
-      <div class="date-roman">XXIX · VIII · 2026</div>
     </div>
   </section>
 
