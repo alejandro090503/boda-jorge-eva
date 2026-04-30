@@ -1668,15 +1668,6 @@ function launchInvitation(){
     if(opened) return;
     opened = true;
 
-    // Iniciar música — el gesto del usuario desbloquea el autoplay
-    const bgAudio = document.getElementById('bg-audio');
-    if(bgAudio){
-      bgAudio.volume = 0.55;
-      const ap = bgAudio.play();
-      if(ap && typeof ap.catch === 'function') ap.catch(()=>{});
-      document.getElementById('music-btn').classList.add('visible');
-    }
-
     // Hint desaparece
     gsap.to(envHint,{opacity:0,duration:.35,ease:'power2.out'});
 
@@ -1710,6 +1701,15 @@ function launchInvitation(){
         envScreen.style.display = 'none';
         wrap.style.visibility = 'visible';
         launchInvitation();
+        // Iniciar música al revelar la invitación
+        const bgAudio = document.getElementById('bg-audio');
+        if(bgAudio){
+          bgAudio.volume = 0.55;
+          const ap = bgAudio.play();
+          if(ap && typeof ap.catch === 'function') ap.catch(()=>{});
+          const mb = document.getElementById('music-btn');
+          if(mb) mb.classList.add('visible');
+        }
         // Disolución revelando la invitación
         gsap.to(envFlash,{opacity:0,duration:1.2,ease:'power2.inOut',delay:.1,
           onComplete:()=>{envFlash.style.display='none'}});
