@@ -1668,6 +1668,10 @@ function launchInvitation(){
     if(opened) return;
     opened = true;
 
+    // Arrancar audio silencioso en el gesto del usuario (desbloquea autoplay)
+    const bgAudio = document.getElementById('bg-audio');
+    if(bgAudio){ bgAudio.volume = 0; bgAudio.play().catch(()=>{}); }
+
     // Hint desaparece
     gsap.to(envHint,{opacity:0,duration:.35,ease:'power2.out'});
 
@@ -1701,12 +1705,10 @@ function launchInvitation(){
         envScreen.style.display = 'none';
         wrap.style.visibility = 'visible';
         launchInvitation();
-        // Iniciar música al revelar la invitación
+        // Subir volumen con fade al revelar la invitación
         const bgAudio = document.getElementById('bg-audio');
         if(bgAudio){
-          bgAudio.volume = 0.55;
-          const ap = bgAudio.play();
-          if(ap && typeof ap.catch === 'function') ap.catch(()=>{});
+          gsap.to(bgAudio,{volume:0.55,duration:2,ease:'power2.inOut'});
           const mb = document.getElementById('music-btn');
           if(mb) mb.classList.add('visible');
         }
