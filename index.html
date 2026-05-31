@@ -421,6 +421,9 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:500;color:var(--accent)}
 
 /* ============ FAMILIA Y PADRINOS ============ */
 .family-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:32px;max-width:900px;margin:0 auto}
+.family-grid--two{grid-template-columns:repeat(2,1fr);max-width:780px}
+@media(max-width:520px){.family-grid--two{gap:16px}
+.family-grid--two .fam-card{padding:28px 16px 24px}}
 .fam-card{
   position:relative;padding:36px 28px 32px;
   background:var(--paper);border:1px solid rgba(184,168,122,.22);
@@ -1207,7 +1210,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
         <div class="eyebrow">Con la bendición de</div>
         <h2>Nuestros <em>Padres</em></h2>
       </div>
-      <div class="family-grid">
+      <div class="family-grid family-grid--two">
         <article class="fam-card">
           <svg class="fam-corner fam-corner--tl" viewBox="0 0 30 30" fill="none"><g stroke="currentColor" stroke-width="1" fill="none"><path d="M2 12 L2 2 L12 2"/><path d="M5 15 L5 5 L15 5" opacity=".55"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/></g></svg>
           <svg class="fam-corner fam-corner--tr" viewBox="0 0 30 30" fill="none"><g stroke="currentColor" stroke-width="1" fill="none"><path d="M2 12 L2 2 L12 2"/><path d="M5 15 L5 5 L15 5" opacity=".55"/><circle cx="9" cy="9" r="1.5" fill="currentColor"/></g></svg>
@@ -1226,7 +1229,8 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
         </article>
       </div>
       <div style="text-align:center;margin-top:72px">
-        <div class="eyebrow">Padrinos de boda</div>
+        <div class="eyebrow">El valioso apoyo de nuestros</div>
+        <h2>Padrinos <em>de</em> Boda</h2>
       </div>
       <div class="family-grid">
         <article class="fam-card">
