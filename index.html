@@ -73,21 +73,20 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:500;color:var(--accent)}
 
 .eyebrow{
   font-family:var(--sans);font-weight:500;
-  font-size:11px;letter-spacing:.55em;
+  font-size:11px;letter-spacing:.45em;
   text-transform:uppercase;
   color:var(--gold-deep);
-  padding-left:.55em;
+  padding-left:.45em;
   margin-bottom:32px;
-  display:inline-block;
+  display:flex;align-items:center;justify-content:center;
+  gap:16px;text-align:center;line-height:1.6;
 }
 .eyebrow::before,.eyebrow::after{
-  content:"";display:inline-block;width:32px;height:1px;
-  background:var(--gold);vertical-align:middle;
-  margin:0 14px 4px 0;
+  content:"";flex:0 0 32px;height:1px;
+  background:var(--gold);opacity:.7;
 }
-.eyebrow::after{margin:0 0 4px 14px}
+.eyebrow--noline{display:block;padding-left:.5em;letter-spacing:.5em}
 .eyebrow--noline::before,.eyebrow--noline::after{display:none}
-.eyebrow--noline{padding-left:0;letter-spacing:.5em;padding-left:.5em}
 
 .hair-word{
   display:flex;align-items:center;justify-content:center;
