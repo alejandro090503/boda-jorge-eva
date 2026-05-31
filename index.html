@@ -851,6 +851,34 @@ h1 em,h2 em,h3 em{font-style:italic;font-weight:500;color:var(--accent)}
 .rsvp-btn:hover{border-color:var(--gold-deep)}
 .rsvp-date{font-family:var(--italiana);font-size:12px;letter-spacing:.45em;text-transform:uppercase;color:var(--ink-soft);margin-top:36px;padding-left:.45em}
 
+/* Pases dinámicos */
+.rsvp-pases{display:none;max-width:480px;margin:0 auto 44px;text-align:center}
+.rsvp-pases.is-active{display:block}
+.rsvp-pases-eyebrow{
+  font-family:var(--sans);font-weight:500;font-size:10.5px;letter-spacing:.5em;
+  text-transform:uppercase;color:var(--gold-deep);padding-left:.5em;margin-bottom:10px;
+}
+.rsvp-pases-count{
+  font-family:var(--display);font-style:italic;font-size:clamp(20px,2.4vw,26px);
+  color:var(--accent-deep);margin-bottom:26px;line-height:1.4;
+}
+.rsvp-pases-count b{font-style:normal;color:var(--gold-deep);font-weight:500}
+.rsvp-fields{display:flex;flex-direction:column;gap:14px;margin-bottom:30px}
+.rsvp-field{
+  display:flex;flex-direction:column;gap:6px;text-align:left;
+}
+.rsvp-field label{
+  font-family:var(--sans);font-size:10px;letter-spacing:.4em;text-transform:uppercase;
+  color:var(--gold-deep);padding-left:.4em;font-weight:500;
+}
+.rsvp-field input{
+  font-family:var(--serif);font-size:17px;color:var(--ink);
+  padding:12px 14px;border:1px solid var(--hair-gold);
+  background:rgba(255,255,255,.4);outline:none;border-radius:2px;
+  transition:border-color .25s,background .25s;
+}
+.rsvp-field input:focus{border-color:var(--gold-deep);background:rgba(255,255,255,.7)}
+
 /* ============ FOOTER ============ */
 footer{
   background:linear-gradient(180deg, var(--accent-deep) 0%, #0F1A10 100%);
@@ -1739,7 +1767,15 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offse
       <div class="eyebrow">Confirma tu asistencia</div>
       <h2>Tu presencia <em>lo</em> es todo</h2>
       <p class="rsvp-text">Por favor confírmanos si nos acompañarás antes del <b>1 de julio de 2026</b>. Un mensaje es suficiente — queremos saber que estarás ahí.</p>
-      <a class="rsvp-btn" href="https://wa.me/526642510632?text=Hola%21%20Confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Gabriela%20%26%20Jorge" target="_blank" rel="noopener">
+
+      <!-- Pases dinámicos (se activa con ?pases=N) -->
+      <div class="rsvp-pases" id="rsvp-pases">
+        <div class="rsvp-pases-eyebrow">Tu invitación</div>
+        <div class="rsvp-pases-count">Tienes <b id="rsvp-pases-num">0</b> <span id="rsvp-pases-label">pases</span> reservados</div>
+        <div class="rsvp-fields" id="rsvp-fields"></div>
+      </div>
+
+      <a class="rsvp-btn" id="rsvp-btn" href="https://wa.me/526642510632?text=Hola%21%20Confirmo%20mi%20asistencia%20a%20la%20boda%20de%20Gabriela%20%26%20Jorge" target="_blank" rel="noopener">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 3.5A11.9 11.9 0 0012 0C5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6A12 12 0 0012 24c6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.5zM12 21.8c-1.8 0-3.6-.5-5.2-1.4l-.4-.2-3.7 1 1-3.6-.2-.4A9.7 9.7 0 012.2 12c0-5.4 4.4-9.8 9.8-9.8 2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8zm5.4-7.3c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-1.7-.9-2.9-1.5-4-3.5-.3-.5.3-.5.9-1.6.1-.2 0-.4 0-.5-.1-.2-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.3 3.1c.2.3 2.2 3.3 5.3 4.7 2 .8 2.8.9 3.8.8.6-.1 1.8-.7 2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.2-.6-.4z"/></svg>
         Confirmar por WhatsApp
       </a>
@@ -2289,6 +2325,58 @@ function startParticles(){
 })();
 
 window.addEventListener('resize',()=>ScrollTrigger.refresh());
+
+// ------ RSVP PASES DINÁMICOS (?pases=N) ------
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  const raw = parseInt(params.get('pases'), 10);
+  if(!raw || raw < 1) return;
+  const pases = Math.min(Math.max(raw, 1), 5);
+  const wrap   = document.getElementById('rsvp-pases');
+  const numEl  = document.getElementById('rsvp-pases-num');
+  const lblEl  = document.getElementById('rsvp-pases-label');
+  const fields = document.getElementById('rsvp-fields');
+  const btn    = document.getElementById('rsvp-btn');
+  if(!wrap || !fields || !btn) return;
+
+  numEl.textContent = pases;
+  lblEl.textContent = pases === 1 ? 'pase' : 'pases';
+
+  // Generar campos
+  let html = '';
+  for(let i = 1; i <= pases; i++){
+    html += `
+      <div class="rsvp-field">
+        <label for="rsvp-name-${i}">Invitado ${i}</label>
+        <input type="text" id="rsvp-name-${i}" name="nombre${i}" placeholder="Nombre completo" autocomplete="off">
+      </div>`;
+  }
+  fields.innerHTML = html;
+  wrap.classList.add('is-active');
+
+  // Construir mensaje WhatsApp con nombres
+  const baseUrl = 'https://wa.me/526642510632';
+  function buildLink(){
+    const nombres = [];
+    for(let i = 1; i <= pases; i++){
+      const v = document.getElementById('rsvp-name-'+i).value.trim();
+      if(v) nombres.push('• ' + v);
+    }
+    const lineas = [
+      '¡Hola! Confirmo mi asistencia a la boda de Gabriela & Jorge.',
+      '',
+      `Pases reservados: ${pases}`
+    ];
+    if(nombres.length){
+      lineas.push('Invitados:');
+      lineas.push(...nombres);
+    }
+    const text = encodeURIComponent(lineas.join('\n'));
+    btn.href = `${baseUrl}?text=${text}`;
+  }
+  buildLink();
+  fields.addEventListener('input', buildLink);
+})();
 
 // ------ MUSIC BUTTON (vinilo play/pause) ------
 (function(){
