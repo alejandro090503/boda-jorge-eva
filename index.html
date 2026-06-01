@@ -2334,7 +2334,7 @@ window.addEventListener('resize',()=>ScrollTrigger.refresh());
   const params = new URLSearchParams(window.location.search);
   const raw = parseInt(params.get('pases'), 10);
   if(!raw || raw < 1) return;
-  const pases = Math.min(Math.max(raw, 1), 5);
+  const pases = Math.min(Math.max(raw, 1), 10);
   const wrap   = document.getElementById('rsvp-pases');
   const numEl  = document.getElementById('rsvp-pases-num');
   const lblEl  = document.getElementById('rsvp-pases-label');
